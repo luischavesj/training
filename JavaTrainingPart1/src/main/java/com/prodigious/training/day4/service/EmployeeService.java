@@ -3,6 +3,7 @@ package com.prodigious.training.day4.service;
 import com.prodigious.training.day4.model.Employee;
 import com.prodigious.training.day4.util.EmployeeMapper;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,19 +16,22 @@ import java.util.List;
  */
 public final class EmployeeService extends DatabaseService {
 
-    private static final String SQL_EMPLOYEE_LIST = "SELECT Emp_Id, Emp_Name, Salary FROM Employee";
-    public EmployeeService(){
+    private static final String QUERY_EMPLOYEE_LIST = "SELECT Emp_Id, Emp_Name, Salary FROM Employee";
+    private static final String UPDATE_EMPLOYEE_SALARY = "UPDATE Employee SET Salary = ? WHERE Emp_Id = ?";
+    private static final String DELETE_EMPLOYEE = "DELETE FROM Employee WHERE Emp_Id = ?";
+    private static final String INSERT_EMPLOYEE = "INSERT INTO Employee (Emp_Id, Emp_Name,Salary) Values(?,?,?)";
+
+    public EmployeeService() {
         super();
     }
 
     public List<Employee> getEmployeeList() {
         List<Employee> employees = new ArrayList<>();
 
-        try (Connection connection = super.getConnection();
-             PreparedStatement statement = connection.prepareStatement(EmployeeService.SQL_EMPLOYEE_LIST);
+        try (PreparedStatement statement = super.getStatement(EmployeeService.QUERY_EMPLOYEE_LIST);
              ResultSet rs = statement.executeQuery()
-            ){
-            while (rs.next()){
+        ) {
+            while (rs.next()) {
                 employees.add(EmployeeMapper.toEmployee(rs));
             }
 
@@ -35,5 +39,58 @@ public final class EmployeeService extends DatabaseService {
             e.printStackTrace();
         }
         return employees;
+    }
+
+    private Employee getEmployeeWithSalaryIncremented(Employee employee, double incrementedPercentage) {
+        BigDecimal newSalary = employee.getEmployeeSalary().multiply(BigDecimal.valueOf(incrementedPercentage));
+        newSalary = newSalary.add(employee.getEmployeeSalary());
+        return new Employee(employee.getEmployeeId(), employee.getEmployeeName(), newSalary);
+    }
+
+    public void increaseEmployeesSalary(double increasedPercentage) {
+        List<Employee> employees = this.getEmployeeList();
+        Employee employeeWithNewSalary;
+        PreparedStatement statement = null;
+        if (employees != null && employees.size() > 0) {
+            try {
+                for (Employee employee : employees) {
+                    employeeWithNewSalary = this.getEmployeeWithSalaryIncremented(employee, increasedPercentage);
+                    statement = super.getStatement(EmployeeService.UPDATE_EMPLOYEE_SALARY);
+                    statement.setInt(2,employeeWithNewSalary.getEmployeeId());
+                    statement.setBigDecimal(1,employeeWithNewSalary.getEmployeeSalary());
+                    super.executeWithoutResultSet(statement);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void removeEmployee(Employee employee) {
+        PreparedStatement statement = null;
+        if (employee != null) {
+            try {
+                statement = super.getStatement(EmployeeService.DELETE_EMPLOYEE);
+                statement.setInt(1,employee.getEmployeeId());
+                super.executeWithoutResultSet(statement);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addEmployee(Employee employee) {
+        PreparedStatement statement = null;
+        if (employee != null) {
+            try {
+                statement = super.getStatement(EmployeeService.INSERT_EMPLOYEE);
+                statement.setInt(1,employee.getEmployeeId());
+                statement.setString(2,employee.getEmployeeName());
+                statement.setBigDecimal(3,employee.getEmployeeSalary());
+                super.executeWithoutResultSet(statement);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

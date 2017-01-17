@@ -12,7 +12,6 @@ import java.sql.SQLException;
 public final class EmployeeMapper {
 
     public EmployeeMapper(){
-
     }
 
     public static Employee toEmployee(ResultSet employeeResult) throws SQLException {
