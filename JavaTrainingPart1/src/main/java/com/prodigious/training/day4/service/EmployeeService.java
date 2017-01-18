@@ -1,10 +1,9 @@
 package com.prodigious.training.day4.service;
 
 import com.prodigious.training.day4.model.Employee;
-import com.prodigious.training.day4.util.EmployeeMapper;
+import com.prodigious.training.day4.util.ConversionMapper;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Luis Chaves on 1/16/2017 for Week 1 day 4 Exercise.
+ * Created by Luis Chaves on 1/16/2017
+ * for Week 1 day 4 Exercise.
  */
 public final class EmployeeService extends DatabaseService {
 
@@ -32,7 +32,7 @@ public final class EmployeeService extends DatabaseService {
              ResultSet rs = statement.executeQuery()
         ) {
             while (rs.next()) {
-                employees.add(EmployeeMapper.toEmployee(rs));
+                employees.add(ConversionMapper.toEmployee(rs));
             }
 
         } catch (SQLException e) {
@@ -50,7 +50,7 @@ public final class EmployeeService extends DatabaseService {
     public void increaseEmployeesSalary(double increasedPercentage) {
         List<Employee> employees = this.getEmployeeList();
         Employee employeeWithNewSalary;
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         if (employees != null && employees.size() > 0) {
             try {
                 for (Employee employee : employees) {
@@ -67,7 +67,7 @@ public final class EmployeeService extends DatabaseService {
     }
 
     public void removeEmployee(Employee employee) {
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         if (employee != null) {
             try {
                 statement = super.getStatement(EmployeeService.DELETE_EMPLOYEE);
@@ -80,7 +80,7 @@ public final class EmployeeService extends DatabaseService {
     }
 
     public void addEmployee(Employee employee) {
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         if (employee != null) {
             try {
                 statement = super.getStatement(EmployeeService.INSERT_EMPLOYEE);
