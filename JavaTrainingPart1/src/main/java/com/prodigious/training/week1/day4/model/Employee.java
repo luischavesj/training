@@ -1,8 +1,9 @@
-package com.prodigious.training.day4.model;
+package com.prodigious.training.week1.day4.model;
 
 import java.math.BigDecimal;
 /**
- * Created by Luis Chaves on 1/16/2017 for Week 1 day 4 Exercise.
+ * Created by Luis Chaves on 1/16/2017
+ * for Week 1 day 4 Exercise.
  */
 public final class Employee{
     private static final int DECIMAL_DIGITS = 5;
@@ -34,12 +35,23 @@ public final class Employee{
         return employeeSalary;
     }
 
+    @Override
     public final String toString(){
         return  "EmpId " + this.getEmployeeId() +
                 " EmpName " + this.getEmployeeName() +
                 " Salary " + this.getEmployeeSalary();
     }
 
+    /**
+     * use toString instead. Example just to see annotations working.
+     */
+
+    @Deprecated
+    public final String printEmployee(){
+        return this.toString();
+    }
+
+    @Override
     public boolean equals(Object o){
         if(o == null){
             return false;
@@ -51,7 +63,7 @@ public final class Employee{
         return this.employeeId == other.getEmployeeId() && this.employeeName.equals(other.getEmployeeName()) &&
                 this.employeeSalary.equals(other.getEmployeeSalary());
     }
-
+    @Override
     public int hashCode (){
         return this.employeeId * this.employeeName.hashCode() * this.employeeSalary.hashCode();
     }

@@ -1,6 +1,6 @@
-package com.prodigious.training.day3.test;
+package com.prodigious.training.test.week1.day3;
 
-import com.prodigious.training.day3.model.FruitExercise;
+import com.prodigious.training.week1.day3.FruitExercise;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.prodigious.training.day3.model;
+package com.prodigious.training.week1.day3;
 
 import java.util.*;
 

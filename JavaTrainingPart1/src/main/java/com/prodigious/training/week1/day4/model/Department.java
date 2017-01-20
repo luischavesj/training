@@ -1,4 +1,4 @@
-package com.prodigious.training.day4.model;
+package com.prodigious.training.week1.day4.model;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public final class Department {
         this.departmentName = departmentName;
         this.employees = new HashSet<>();
     }
-
+    @Override
     public final String toString(){
         StringBuilder builder = new StringBuilder();
 
@@ -46,7 +46,7 @@ public final class Department {
                 " DeptName " + this.getDepartmentName() +
                 " Employees "  + builder;
     }
-
+    @Override
     public boolean equals(Object o){
         if(o == null){
             return false;
@@ -57,7 +57,7 @@ public final class Department {
         Department other = (Department) o;
         return this.departmentId == other.getDepartmentId() && this.departmentName.equals(other.getDepartmentName());
     }
-
+    @Override
     public int hashCode (){
         return this.departmentId * this.departmentName.hashCode();
     }

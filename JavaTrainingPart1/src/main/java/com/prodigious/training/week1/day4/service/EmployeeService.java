@@ -1,7 +1,7 @@
-package com.prodigious.training.day4.service;
+package com.prodigious.training.week1.day4.service;
 
-import com.prodigious.training.day4.model.Employee;
-import com.prodigious.training.day4.util.ConversionMapper;
+import com.prodigious.training.week1.day4.model.Employee;
+import com.prodigious.training.week1.day4.util.ConversionMapper;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;

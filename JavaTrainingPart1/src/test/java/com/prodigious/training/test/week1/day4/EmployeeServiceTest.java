@@ -1,7 +1,7 @@
-package com.prodigious.training.day4.test;
+package com.prodigious.training.test.week1.day4;
 
-import com.prodigious.training.day4.model.Employee;
-import com.prodigious.training.day4.service.EmployeeService;
+import com.prodigious.training.week1.day4.model.Employee;
+import com.prodigious.training.week1.day4.service.EmployeeService;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Luis Chaves on 1/16/2017 for Week 1 day 4 Exercise.
+ * Created by Luis Chaves on 1/16/2017
+ * for Week 1 day 4 Exercise.
  */
 
 public class EmployeeServiceTest {
@@ -37,6 +38,9 @@ public class EmployeeServiceTest {
         System.out.println("Total of employees " + employees.size());
         //Based on BeforeClass, there should be 5 items in total
         assert(employees.size() == 5);
+
+        //Test line to see working the @Deprecated annotation.
+        System.out.println(employees.get(0).printEmployee());
 
     }
 

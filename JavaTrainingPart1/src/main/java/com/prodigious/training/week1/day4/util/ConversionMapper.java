@@ -1,8 +1,8 @@
-package com.prodigious.training.day4.util;
+package com.prodigious.training.week1.day4.util;
 
 
-import com.prodigious.training.day4.model.Department;
-import com.prodigious.training.day4.model.Employee;
+import com.prodigious.training.week1.day4.model.Department;
+import com.prodigious.training.week1.day4.model.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

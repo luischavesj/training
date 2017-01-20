@@ -1,4 +1,4 @@
-package com.prodigious.training.day4.service;
+package com.prodigious.training.week1.day4.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by Luis Chaves on 1/16/2017 for Week 1 day 4 Exercise.
+ * Created by Luis Chaves on 1/16/2017
+ * for Week 1 day 4 Exercise.
  */
 public class DatabaseService {
 

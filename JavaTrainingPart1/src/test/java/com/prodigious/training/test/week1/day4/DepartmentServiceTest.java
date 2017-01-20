@@ -1,15 +1,13 @@
-package com.prodigious.training.day4.test;
+package com.prodigious.training.test.week1.day4;
 
-import com.prodigious.training.day4.model.Department;
-import com.prodigious.training.day4.model.Employee;
-import com.prodigious.training.day4.service.DepartmentService;
-import com.prodigious.training.day4.service.EmployeeService;
+import com.prodigious.training.week1.day4.model.Department;
+import com.prodigious.training.week1.day4.model.Employee;
+import com.prodigious.training.week1.day4.service.DepartmentService;
+import com.prodigious.training.week1.day4.service.EmployeeService;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
