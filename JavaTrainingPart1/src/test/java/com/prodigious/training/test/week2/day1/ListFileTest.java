@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 /**
  * Created by Luis Chaves on 1/20/2017.
  * To test certain File capabilities
