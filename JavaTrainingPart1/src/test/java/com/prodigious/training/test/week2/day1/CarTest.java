@@ -2,6 +2,7 @@ package com.prodigious.training.test.week2.day1;
 
 import com.prodigious.training.week2.day1.Car;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,8 +23,8 @@ public class CarTest {
     }
 
     @After
-    public void cleanOutput() {
-        System.setOut(null);
+    public void cleanOutput(){
+        //System.setOut(null);
     }
     @Test
     public void startTest(){

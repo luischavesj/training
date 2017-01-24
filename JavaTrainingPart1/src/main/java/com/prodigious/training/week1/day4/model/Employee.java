@@ -5,22 +5,17 @@ import java.math.BigDecimal;
  * Created by Luis Chaves on 1/16/2017
  * for Week 1 day 4 Exercise.
  */
-public final class Employee{
+public final class Employee {
     private static final int DECIMAL_DIGITS = 5;
+
     private final int employeeId;
     private final String employeeName;
     private final BigDecimal employeeSalary;
 
-    public Employee (int employeeId, String employeeName, BigDecimal employeeSalary){
+    public Employee(int employeeId, String employeeName, BigDecimal employeeSalary){
         this.employeeId = employeeId;
         this.employeeName = employeeName;
-        if (employeeSalary != null) {
-            //Added this validation since in database the DataType stored is a Decimal 19,5
-            this.employeeSalary = employeeSalary.setScale(Employee.DECIMAL_DIGITS,BigDecimal.ROUND_CEILING);
-        }
-        else{
-            this.employeeSalary = BigDecimal.ZERO;
-        }
+        this.employeeSalary = employeeSalary;
     }
 
     public final int getEmployeeId(){
@@ -52,19 +47,31 @@ public final class Employee{
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o == null){
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
             return false;
         }
-        if(!(o instanceof Employee)){
+
+        Employee that = (Employee) o;
+
+        if (employeeId != that.employeeId){
             return false;
         }
-        Employee other = (Employee) o;
-        return this.employeeId == other.getEmployeeId() && this.employeeName.equals(other.getEmployeeName()) &&
-                this.employeeSalary.equals(other.getEmployeeSalary());
+        if (!employeeName.equals(that.employeeName)){
+            return false;
+        }
+        return employeeSalary.setScale(Employee.DECIMAL_DIGITS,BigDecimal.ROUND_CEILING).equals(
+                that.employeeSalary.setScale(Employee.DECIMAL_DIGITS,BigDecimal.ROUND_CEILING));
     }
+
     @Override
-    public int hashCode (){
-        return this.employeeId * this.employeeName.hashCode() * this.employeeSalary.hashCode();
+    public int hashCode() {
+        int result = employeeId;
+        result = 31 * result + employeeName.hashCode();
+        result = 31 * result + employeeSalary.hashCode();
+        return result;
     }
 }

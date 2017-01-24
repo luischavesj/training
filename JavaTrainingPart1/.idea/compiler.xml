@@ -25,7 +25,7 @@
         <module name="JavaTrainingPart1" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.9">
       <module name="JavaTrainingPart1" target="1.7" />
     </bytecodeTargetLevel>
   </component>

@@ -1,6 +1,8 @@
 package com.prodigious.training.week1.day3;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Created by Luis Chaves on 1/13/2017.

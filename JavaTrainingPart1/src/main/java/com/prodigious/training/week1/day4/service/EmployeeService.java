@@ -1,96 +1,76 @@
 package com.prodigious.training.week1.day4.service;
 
+import com.prodigious.training.week1.day4.dao.EmployeeDAO;
 import com.prodigious.training.week1.day4.model.Employee;
-import com.prodigious.training.week1.day4.util.ConversionMapper;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
+import javax.naming.NamingException;
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
- * Created by Luis Chaves on 1/16/2017
- * for Week 1 day 4 Exercise.
+ * Created by Luis Chaves on 1/24/2017
+ * to test services with DAO and Models.
  */
-public final class EmployeeService extends DatabaseService {
+public class EmployeeService {
+    private static final Logger logger = LogManager.getLogger(DepartmentService.class);
+    private EmployeeDAO employeeDAO;
 
-    private static final String QUERY_EMPLOYEE_LIST = "SELECT Emp_Id, Emp_Name, Salary FROM Employee";
-    private static final String UPDATE_EMPLOYEE_SALARY = "UPDATE Employee SET Salary = ? WHERE Emp_Id = ?";
-    private static final String DELETE_EMPLOYEE = "DELETE FROM Employee WHERE Emp_Id = ?";
-    private static final String INSERT_EMPLOYEE = "INSERT INTO Employee (Emp_Id, Emp_Name,Salary) Values(?,?,?)";
-
-    public EmployeeService() {
-        super();
+    public EmployeeService(){
+        try {
+            employeeDAO = new EmployeeDAO();
+        } catch (NamingException e) {
+            logger.error(e.getMessage(),e);
+        }
     }
 
-    public List<Employee> getEmployeeList() {
-        List<Employee> employees = new ArrayList<>();
-
-        try (PreparedStatement statement = super.getStatement(EmployeeService.QUERY_EMPLOYEE_LIST);
-             ResultSet rs = statement.executeQuery()
-        ) {
-            while (rs.next()) {
-                employees.add(ConversionMapper.toEmployee(rs));
-            }
-
+    public void createEmployee(Employee employee){
+        try {
+            employeeDAO.addEmployee(employee);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
+        }
+    }
+
+    public void removeEmployee(Employee employee){
+        try {
+            employeeDAO.deleteEmployee(employee);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+        }
+    }
+
+    public Collection<Employee> getEmployees(){
+        Collection<Employee> employees;
+        try {
+            employees = employeeDAO.getEmployeeList();
+        } catch (SQLException e) {
+            employees = new ArrayList<>();
+            logger.error(e.getMessage(),e);
         }
         return employees;
     }
 
-    private Employee getEmployeeWithSalaryIncremented(Employee employee, double incrementedPercentage) {
-        BigDecimal newSalary = employee.getEmployeeSalary().multiply(BigDecimal.valueOf(incrementedPercentage));
+    private Employee getEmployeeWithSalaryIncremented(Employee employee, BigDecimal incrementedPercentage) {
+        BigDecimal newSalary = employee.getEmployeeSalary().multiply(incrementedPercentage);
         newSalary = newSalary.add(employee.getEmployeeSalary());
         return new Employee(employee.getEmployeeId(), employee.getEmployeeName(), newSalary);
     }
 
-    public void increaseEmployeesSalary(double increasedPercentage) {
-        List<Employee> employees = this.getEmployeeList();
+    public void increaseEmployeesSalary(Collection<Employee> employees, BigDecimal increasedPercentage){
         Employee employeeWithNewSalary;
-        PreparedStatement statement;
-        if (employees != null && employees.size() > 0) {
-            try {
+        try {
+            if (employees != null && employees.size() > 0) {
                 for (Employee employee : employees) {
                     employeeWithNewSalary = this.getEmployeeWithSalaryIncremented(employee, increasedPercentage);
-                    statement = super.getStatement(EmployeeService.UPDATE_EMPLOYEE_SALARY);
-                    statement.setInt(2,employeeWithNewSalary.getEmployeeId());
-                    statement.setBigDecimal(1,employeeWithNewSalary.getEmployeeSalary());
-                    super.executeWithoutResultSet(statement);
+                    employeeDAO.setUpdateEmployee(employeeWithNewSalary);
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-        }
-    }
-
-    public void removeEmployee(Employee employee) {
-        PreparedStatement statement;
-        if (employee != null) {
-            try {
-                statement = super.getStatement(EmployeeService.DELETE_EMPLOYEE);
-                statement.setInt(1,employee.getEmployeeId());
-                super.executeWithoutResultSet(statement);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void addEmployee(Employee employee) {
-        PreparedStatement statement;
-        if (employee != null) {
-            try {
-                statement = super.getStatement(EmployeeService.INSERT_EMPLOYEE);
-                statement.setInt(1,employee.getEmployeeId());
-                statement.setString(2,employee.getEmployeeName());
-                statement.setBigDecimal(3,employee.getEmployeeSalary());
-                super.executeWithoutResultSet(statement);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        }catch (SQLException e) {
+            logger.error(e.getMessage(),e);
         }
     }
 }

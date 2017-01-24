@@ -2,7 +2,6 @@ package com.prodigious.training.week1.day4.model;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 
 /**
  * Created by Luis Chaves on 1/16/2017
@@ -26,15 +25,12 @@ public final class Department {
         return Collections.unmodifiableCollection(employees);
     }
 
-    public void addEmployee(Employee employee){
-        employees.add(employee);
-    }
-
-    public Department(int departmentId, String departmentName){
+    public Department(int departmentId, String departmentName, Collection<Employee> employees){
         this.departmentId = departmentId;
         this.departmentName = departmentName;
-        this.employees = new HashSet<>();
+        this.employees = Collections.unmodifiableCollection(employees);
     }
+
     @Override
     public final String toString(){
         StringBuilder builder = new StringBuilder();
@@ -46,19 +42,23 @@ public final class Department {
                 " DeptName " + this.getDepartmentName() +
                 " Employees "  + builder;
     }
+
     @Override
-    public boolean equals(Object o){
-        if(o == null){
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
             return false;
         }
-        if(!(o instanceof Department)){
-            return false;
-        }
-        Department other = (Department) o;
-        return this.departmentId == other.getDepartmentId() && this.departmentName.equals(other.getDepartmentName());
+
+        Department that = (Department) o;
+
+        return (departmentId != that.departmentId)&& departmentName.equals(that.departmentName);
     }
+
     @Override
-    public int hashCode (){
-        return this.departmentId * this.departmentName.hashCode();
+    public int hashCode() {
+        return 31 * departmentId + departmentName.hashCode();
     }
 }
