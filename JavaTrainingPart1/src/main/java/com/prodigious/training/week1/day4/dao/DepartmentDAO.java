@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Luis Chaves on 1/16/2017
  * for Week 1 day 4 Exercise.
  */
-public final class DepartmentDAO extends BaseDAO {
+public /*final <REMOVED TO USE MOCKITO>*/ class DepartmentDAO extends BaseDAO {
 
     private static final String QUERY_DEPARTMENT_LIST = "SELECT DISTINCT Dept_Id, Dept_Name FROM Department";
     private static final String QUERY_EMPLOYEE_LIST_BY_DEPARTMENT_ID = "SELECT e.Emp_Id, e.Emp_Name, e.Salary FROM Employee e JOIN Department d ON e.Emp_Id = d.Emp_Id WHERE d.Dept_Id = ?";

@@ -27,6 +27,10 @@ public class EmployeeService {
         }
     }
 
+    public EmployeeService(EmployeeDAO employeeDAO){
+        this.employeeDAO = employeeDAO;
+    }
+
     public void createEmployee(Employee employee){
         try {
             employeeDAO.addEmployee(employee);

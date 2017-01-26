@@ -27,6 +27,10 @@ public class DepartmentService {
         }
     }
 
+    public DepartmentService(DepartmentDAO departmentDAO){
+        this.departmentDAO = departmentDAO;
+    }
+
     public void createDepartment(Department department){
         try {
             departmentDAO.addDepartment(department);

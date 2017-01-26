@@ -13,7 +13,7 @@ import java.util.Collection;
  * Created by Luis Chaves on 1/16/2017
  * for Week 1 day 4 Exercise.
  */
-public final class EmployeeDAO extends BaseDAO {
+public /*final <REMOVED TO USE MOCKITO>*/ class EmployeeDAO extends BaseDAO {
 
     private static final String QUERY_EMPLOYEE_LIST = "SELECT Emp_Id, Emp_Name, Salary FROM Employee";
     private static final String UPDATE_EMPLOYEE = "UPDATE Employee SET Emp_Name = ?, Salary = ? WHERE Emp_Id = ?";

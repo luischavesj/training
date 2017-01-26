@@ -4,9 +4,8 @@ import com.prodigious.training.test.week1.day4.dao.EmployeeDAOTest;
 import com.prodigious.training.week1.day4.dao.EmployeeDAO;
 import com.prodigious.training.week1.day4.model.Employee;
 import com.prodigious.training.week1.day4.service.EmployeeService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.mockito.Mockito;
 
 import javax.naming.NamingException;
 import java.math.BigDecimal;
@@ -14,42 +13,57 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 /**
  * Created by Luis Chaves on 1/24/2017
- * to test the Employee Service.
+ * to test the Employee Service using Mockito.
  */
 public class EmployeeServiceTest {
 
+    private EmployeeService employeeService;
+    private EmployeeDAO employeeDAO;
     @Before
-    public void createEmployees() throws NamingException, SQLException {
-        EmployeeDAOTest.prepareData();
+    public void createEmployeeService() throws NamingException, SQLException {
+        employeeDAO = Mockito.mock(EmployeeDAO.class);
+        employeeService = new EmployeeService(employeeDAO);
     }
 
     @After
-    public void removeEmployees() throws SQLException, NamingException {
-        EmployeeDAOTest.clearDatabase();
+    public void removeEmployeeService() throws SQLException, NamingException {
+        employeeService = null;
+        employeeDAO = null;
     }
 
     @Test
-    public void increaseEmployeesSalaryTest(){
+    public void createEmployeeTest() throws SQLException {
+        Employee employee = new Employee(1,"Luis",new BigDecimal("1000"));
+        employeeService.createEmployee(employee);
+        verify(employeeDAO,times(1)).addEmployee(employee);
+    }
 
-        EmployeeService employeeService = new EmployeeService();
-        // This call is just to prepare the data for the assert method
+    @Test
+    public void removeEmployeeTest() throws SQLException {
+        Employee employee = new Employee(1,"Luis",new BigDecimal("1000"));
+        employeeService.removeEmployee(employee);
+        verify(employeeDAO,times(1)).deleteEmployee(employee);
+    }
+
+    @Test
+    public void getEmployeesTest() throws SQLException {
         Collection<Employee> employees = employeeService.getEmployees();
-        Collection<Employee> expected = new ArrayList<>();
-        BigDecimal newSalary;
-        employeeService.increaseEmployeesSalary(employees,new BigDecimal("0.2"));
-        //Just to print the method name
-        System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-        System.out.println(employeeService.getEmployees());
+        verify(employeeDAO,times(1)).getEmployeeList();
+    }
 
-        //To build the expected list using other mechanism to truly validate the method.
-        for(Employee employee: employees){
-            newSalary = employee.getEmployeeSalary().add(employee.getEmployeeSalary().multiply(new BigDecimal("0.2")));
-            expected.add(new Employee(employee.getEmployeeId(),employee.getEmployeeName(),newSalary));
-        }
-
-        //Using equals and hashCode of Employee class which was implemented to include Name and Salary also.
-        assert (expected.containsAll(employeeService.getEmployees()));
+    @Test
+    public void increaseEmployeesSalaryTest() throws SQLException {
+        Collection<Employee> employees = new ArrayList<>();
+        Employee employee = new Employee(1,"Luis",new BigDecimal("1000"));
+        employees.add(employee);
+        employees.add(employee);
+        Employee employeeWithNewSalary = new Employee(1,"Luis", new BigDecimal("1200"));
+        employeeService.increaseEmployeesSalary(employees, new BigDecimal("0.2"));
+        verify(employeeDAO,times(2)).setUpdateEmployee(employeeWithNewSalary);
     }
 }
