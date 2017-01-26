@@ -1,10 +1,13 @@
 package com.prodigious.training.week1.day4.model;
 
+import com.prodigious.training.week2.day2.AuthorAnnotationCustom;
+
 import java.math.BigDecimal;
 /**
  * Created by Luis Chaves on 1/16/2017
  * for Week 1 day 4 Exercise.
  */
+@AuthorAnnotationCustom.AuthorAnnotation(AuthorName = "Luis Chaves",EmailId = "luis.chaves@prodigious.com")
 public final class Employee {
     private static final int DECIMAL_DIGITS = 5;
 
@@ -17,7 +20,7 @@ public final class Employee {
         this.employeeName = employeeName;
         this.employeeSalary = employeeSalary;
     }
-
+    @AuthorAnnotationCustom.AuthorAnnotation(AuthorName = "Luis Chaves",EmailId = "luis.chaves@prodigious.com")
     public final int getEmployeeId(){
         return employeeId;
     }
