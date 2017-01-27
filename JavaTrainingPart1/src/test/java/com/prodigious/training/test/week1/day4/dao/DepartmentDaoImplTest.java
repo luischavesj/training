@@ -1,7 +1,9 @@
 package com.prodigious.training.test.week1.day4.dao;
 
-import com.prodigious.training.week1.day4.dao.DepartmentDAO;
-import com.prodigious.training.week1.day4.dao.EmployeeDAO;
+import com.prodigious.training.week1.day4.dao.DepartmentDao;
+import com.prodigious.training.week1.day4.dao.DepartmentDaoImpl;
+import com.prodigious.training.week1.day4.dao.EmployeeDao;
+import com.prodigious.training.week1.day4.dao.EmployeeDaoImpl;
 import com.prodigious.training.week1.day4.model.Department;
 import com.prodigious.training.week1.day4.model.Employee;
 import org.junit.AfterClass;
@@ -20,19 +22,19 @@ import java.util.List;
  * List the departments with the employees (using toString)
  * Remove the departments one by one using the deleteDepartment method.
  */
-public class DepartmentDAOTest {
+public class DepartmentDaoImplTest {
     @BeforeClass
     public static void prepareData() throws NamingException, SQLException {
         //Use this just as a way to retrieve the current employees
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDao employeeDAO = new EmployeeDaoImpl();
         Collection<Employee> employees = employeeDAO.getEmployeeList();
         //If database empty then recreate the employees reusing previous test
         if (employees.size() == 0){
-            EmployeeDAOTest.prepareData();
+            EmployeeDaoImplTest.prepareData();
             employees = employeeDAO.getEmployeeList();
         }
 
-        DepartmentDAO departmentDAO = new DepartmentDAO();
+        DepartmentDao departmentDAO = new DepartmentDaoImpl();
         Department department = new Department(1,"Development", ((List<Employee>)employees).subList(0,1));
         departmentDAO.addDepartment(department);
 
@@ -45,8 +47,8 @@ public class DepartmentDAOTest {
 
     @Test
     public void getDepartmentListTest() throws NamingException,SQLException {
-        DepartmentDAO departmentDAO = new DepartmentDAO();
-        List<Department> departmentList = departmentDAO.getDepartmentList();
+        DepartmentDao departmentDAO = new DepartmentDaoImpl();
+        Collection<Department> departmentList = departmentDAO.getDepartmentList();
         System.out.println(departmentList);
 
         assert(departmentList.size() == 3);
@@ -54,8 +56,8 @@ public class DepartmentDAOTest {
 
     @AfterClass
     public static void clearDatabase() throws NamingException, SQLException {
-        DepartmentDAO departmentDAO = new DepartmentDAO();
-        List<Department> departmentList = departmentDAO.getDepartmentList();
+        DepartmentDao departmentDAO = new DepartmentDaoImpl();
+        Collection<Department> departmentList = departmentDAO.getDepartmentList();
         for(Department department: departmentList) {
             departmentDAO.deleteDepartment(department);
         }
@@ -63,6 +65,6 @@ public class DepartmentDAOTest {
         //Make sure no departments are available in DB
         assert (departmentDAO.getDepartmentList().size() == 0);
 
-        EmployeeDAOTest.clearDatabase();
+        EmployeeDaoImplTest.clearDatabase();
     }
 }

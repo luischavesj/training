@@ -1,9 +1,10 @@
 package com.prodigious.training.test.week1.day4.service;
 
-import com.prodigious.training.test.week1.day4.dao.EmployeeDAOTest;
-import com.prodigious.training.week1.day4.dao.EmployeeDAO;
+import com.prodigious.training.week1.day4.dao.EmployeeDao;
+import com.prodigious.training.week1.day4.dao.EmployeeDaoImpl;
 import com.prodigious.training.week1.day4.model.Employee;
 import com.prodigious.training.week1.day4.service.EmployeeService;
+import com.prodigious.training.week1.day4.service.EmployeeServiceImpl;
 import org.junit.*;
 import org.mockito.Mockito;
 
@@ -20,14 +21,14 @@ import static org.mockito.Mockito.verify;
  * Created by Luis Chaves on 1/24/2017
  * to test the Employee Service using Mockito.
  */
-public class EmployeeServiceTest {
+public class EmployeeServiceImplTest {
 
     private EmployeeService employeeService;
-    private EmployeeDAO employeeDAO;
+    private EmployeeDao employeeDAO;
     @Before
     public void createEmployeeService() throws NamingException, SQLException {
-        employeeDAO = Mockito.mock(EmployeeDAO.class);
-        employeeService = new EmployeeService(employeeDAO);
+        employeeDAO = Mockito.mock(EmployeeDao.class);
+        employeeService = new EmployeeServiceImpl(employeeDAO);
     }
 
     @After
@@ -64,6 +65,6 @@ public class EmployeeServiceTest {
         employees.add(employee);
         Employee employeeWithNewSalary = new Employee(1,"Luis", new BigDecimal("1200"));
         employeeService.increaseEmployeesSalary(employees, new BigDecimal("0.2"));
-        verify(employeeDAO,times(2)).setUpdateEmployee(employeeWithNewSalary);
+        verify(employeeDAO,times(2)).updateEmployee(employeeWithNewSalary);
     }
 }

@@ -1,8 +1,10 @@
 package com.prodigious.training.test.week1.day4.service;
 
-import com.prodigious.training.week1.day4.dao.DepartmentDAO;
+import com.prodigious.training.week1.day4.dao.DepartmentDao;
+import com.prodigious.training.week1.day4.dao.DepartmentDaoImpl;
 import com.prodigious.training.week1.day4.model.Department;
 import com.prodigious.training.week1.day4.service.DepartmentService;
+import com.prodigious.training.week1.day4.service.DepartmentServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,15 +21,15 @@ import static org.mockito.Mockito.verify;
  * Created by luichave2 on 1/25/2017
  * to test the Department Service using Mockito.
  */
-public class DepartmentServiceTest {
+public class DepartmentServiceImplTest {
 
     private DepartmentService departmentService;
-    private DepartmentDAO departmentDAO;
+    private DepartmentDao departmentDAO;
 
     @Before
     public void createDepartmentService() throws NamingException, SQLException {
-        departmentDAO = Mockito.mock(DepartmentDAO.class);
-        departmentService = new DepartmentService(departmentDAO);
+        departmentDAO = Mockito.mock(DepartmentDao.class);
+        departmentService = new DepartmentServiceImpl(departmentDAO);
     }
 
     @After

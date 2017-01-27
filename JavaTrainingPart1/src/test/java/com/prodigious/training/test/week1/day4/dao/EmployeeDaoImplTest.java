@@ -1,6 +1,7 @@
 package com.prodigious.training.test.week1.day4.dao;
 
-import com.prodigious.training.week1.day4.dao.EmployeeDAO;
+import com.prodigious.training.week1.day4.dao.EmployeeDao;
+import com.prodigious.training.week1.day4.dao.EmployeeDaoImpl;
 import com.prodigious.training.week1.day4.model.Employee;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -9,7 +10,6 @@ import org.junit.Test;
 import javax.naming.NamingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,11 +18,11 @@ import java.util.List;
  * for Week 1 day 4 Exercise.
  */
 
-public class EmployeeDAOTest {
+public class EmployeeDaoImplTest {
 
     @BeforeClass
     public static void prepareData() throws NamingException, SQLException {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDao employeeDAO = new EmployeeDaoImpl();
         employeeDAO.addEmployee(new Employee(1,"Luis",new BigDecimal("1000")));
         employeeDAO.addEmployee(new Employee(2,"Bob",new BigDecimal("1500")));
         employeeDAO.addEmployee(new Employee(3,"Robert",new BigDecimal("700")));
@@ -33,7 +33,7 @@ public class EmployeeDAOTest {
     }
     @Test
     public void getEmployeeListTest() throws NamingException, SQLException {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDao employeeDAO = new EmployeeDaoImpl();
         Collection<Employee> employees = employeeDAO.getEmployeeList();
         //Just to print the method name
         System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
@@ -49,11 +49,11 @@ public class EmployeeDAOTest {
     @Test
     public void increaseEmployeesSalaryTest() throws NamingException, SQLException {
 
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDao employeeDAO = new EmployeeDaoImpl();
         // This call is just to prepare the data for the assert method
         Collection<Employee> employees = employeeDAO.getEmployeeList();
         Employee updatedEmployee = new Employee(5,"Angela",new BigDecimal("200"));
-        employeeDAO.setUpdateEmployee(updatedEmployee);
+        employeeDAO.updateEmployee(updatedEmployee);
         //Just to print the method name
         System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
         System.out.println(employeeDAO.getEmployeeList());
@@ -65,7 +65,7 @@ public class EmployeeDAOTest {
 
     @AfterClass
     public static void clearDatabase() throws NamingException, SQLException {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDao employeeDAO = new EmployeeDaoImpl();
         Collection<Employee> employees = employeeDAO.getEmployeeList();
         for(Employee employee:employees){
             employeeDAO.deleteEmployee(employee);
