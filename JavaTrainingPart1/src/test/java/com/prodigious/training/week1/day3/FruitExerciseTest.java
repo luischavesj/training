@@ -1,4 +1,4 @@
-package com.prodigious.training.test.week1.day3;
+package com.prodigious.training.week1.day3;
 
 import com.prodigious.training.week1.day3.FruitExercise;
 import org.junit.Test;

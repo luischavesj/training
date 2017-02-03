@@ -1,4 +1,4 @@
-package com.prodigious.training.test.week1.day4.dao;
+package com.prodigious.training.week1.day4.dao;
 
 import com.prodigious.training.week1.day4.dao.EmployeeDao;
 import com.prodigious.training.week1.day4.dao.EmployeeDaoImpl;
@@ -22,19 +22,19 @@ public class EmployeeDaoImplTest {
 
     @BeforeClass
     public static void prepareData() throws NamingException, SQLException {
-        EmployeeDao employeeDAO = new EmployeeDaoImpl();
-        employeeDAO.addEmployee(new Employee(1,"Luis",new BigDecimal("1000")));
-        employeeDAO.addEmployee(new Employee(2,"Bob",new BigDecimal("1500")));
-        employeeDAO.addEmployee(new Employee(3,"Robert",new BigDecimal("700")));
-        employeeDAO.addEmployee(new Employee(4,"Maria",new BigDecimal("2000")));
-        employeeDAO.addEmployee(new Employee(5,"Angela",new BigDecimal("800")));
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
+        employeeDao.addEmployee(new Employee(1,"Luis",new BigDecimal("1000")));
+        employeeDao.addEmployee(new Employee(2,"Bob",new BigDecimal("1500")));
+        employeeDao.addEmployee(new Employee(3,"Robert",new BigDecimal("700")));
+        employeeDao.addEmployee(new Employee(4,"Maria",new BigDecimal("2000")));
+        employeeDao.addEmployee(new Employee(5,"Angela",new BigDecimal("800")));
 
-        assert(employeeDAO.getEmployeeList().size() == 5);
+        assert(employeeDao.getEmployeeList().size() == 5);
     }
     @Test
     public void getEmployeeListTest() throws NamingException, SQLException {
-        EmployeeDao employeeDAO = new EmployeeDaoImpl();
-        Collection<Employee> employees = employeeDAO.getEmployeeList();
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
+        Collection<Employee> employees = employeeDao.getEmployeeList();
         //Just to print the method name
         System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
         System.out.println(employees);
@@ -49,29 +49,29 @@ public class EmployeeDaoImplTest {
     @Test
     public void increaseEmployeesSalaryTest() throws NamingException, SQLException {
 
-        EmployeeDao employeeDAO = new EmployeeDaoImpl();
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
         // This call is just to prepare the data for the assert method
-        Collection<Employee> employees = employeeDAO.getEmployeeList();
+        Collection<Employee> employees = employeeDao.getEmployeeList();
         Employee updatedEmployee = new Employee(5,"Angela",new BigDecimal("200"));
-        employeeDAO.updateEmployee(updatedEmployee);
+        employeeDao.updateEmployee(updatedEmployee);
         //Just to print the method name
         System.out.println(new Object(){}.getClass().getEnclosingMethod().getName());
-        System.out.println(employeeDAO.getEmployeeList());
+        System.out.println(employeeDao.getEmployeeList());
 
         //Using equals and hashCode of Employee class which was implemented to include Name and Salary also.
-        assert(employees.size() == employeeDAO.getEmployeeList().size());
-        assert (!employees.containsAll(employeeDAO.getEmployeeList()));
+        assert(employees.size() == employeeDao.getEmployeeList().size());
+        assert (!employees.containsAll(employeeDao.getEmployeeList()));
     }
 
     @AfterClass
     public static void clearDatabase() throws NamingException, SQLException {
-        EmployeeDao employeeDAO = new EmployeeDaoImpl();
-        Collection<Employee> employees = employeeDAO.getEmployeeList();
+        EmployeeDao employeeDao = new EmployeeDaoImpl();
+        Collection<Employee> employees = employeeDao.getEmployeeList();
         for(Employee employee:employees){
-            employeeDAO.deleteEmployee(employee);
+            employeeDao.deleteEmployee(employee);
         }
 
         //Make sure all records were deleted
-        assert (employeeDAO.getEmployeeList().size() == 0);
+        assert (employeeDao.getEmployeeList().size() == 0);
     }
 }

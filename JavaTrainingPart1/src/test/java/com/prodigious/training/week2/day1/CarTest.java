@@ -1,4 +1,4 @@
-package com.prodigious.training.test.week2.day1;
+package com.prodigious.training.week2.day1;
 
 import com.prodigious.training.week2.day1.Car;
 import org.junit.After;
