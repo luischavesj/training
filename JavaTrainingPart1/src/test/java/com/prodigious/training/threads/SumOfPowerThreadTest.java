@@ -16,12 +16,11 @@ public class SumOfPowerThreadTest {
         BigDecimal result;
         //To track duration
         long initialTime = System.currentTimeMillis();
-        SumOfPowerThread thread = new SumOfPowerThread(numberToCalculate);
+        SumOfPowerThread thread = new SumOfPowerThread(numberToCalculate,5);
         result = thread.getResult();
         //checks against formula (n(n + 1)(2n + 1))/6
         assert(result.equals(PowerCalculatorUtil.calculatePowerDirect(numberToCalculate)));
         long finalTime = System.currentTimeMillis();
-
         System.out.println("Elapsed Time: " + (finalTime - initialTime)/1000 + " Second(s). Number = " + result);
     }
 }

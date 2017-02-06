@@ -11,21 +11,16 @@ import java.util.concurrent.ExecutionException;
  */
 public class SumOfPowerServiceTest {
     @Test
-    public void calculatePowerTest() throws ExecutionException, InterruptedException {
+    public void calculatePowerTest() {
         BigDecimal numberToCalculate = new BigDecimal("1000000");
         BigDecimal result;
-        SumOfPowerService service = new SumOfPowerService(numberToCalculate);
-
+        SumOfPowerService service = new SumOfPowerService(numberToCalculate,5);
         //To track duration
         long initialTime = System.currentTimeMillis();
-
         result = service.calculatePower();
-
         //checks against formula (n(n + 1)(2n + 1))/6
         assert(result.equals(PowerCalculatorUtil.calculatePowerDirect(numberToCalculate)));
-
         long finalTime = System.currentTimeMillis();
-
         System.out.println("Elapsed Time: " + (finalTime - initialTime)/1000 + " Second(s). Number = " + result);
     }
 }

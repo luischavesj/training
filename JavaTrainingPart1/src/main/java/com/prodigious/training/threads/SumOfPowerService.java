@@ -11,7 +11,7 @@ import java.util.concurrent.*;
  * Created by Luis Chaves on 2/3/2017.
  * to test multi threading
  */
-public class SumOfPowerService {
+public final class SumOfPowerService {
 
     private ExecutorService service;
     private List<Future> tasks;
@@ -27,7 +27,7 @@ public class SumOfPowerService {
         this.sleepTime = sleepTime;
         numberOfThreads = this.numberToCalculate.divide(SumOfPowerService.NUMBER_OF_CHUNKS,BigDecimal.ROUND_UP).intValue();
         service = Executors.newFixedThreadPool(numberOfThreads);
-        tasks = new ArrayList<>();
+        tasks = new ArrayList<>(numberOfThreads);
         logger = Logger.getLogger(SumOfPowerService.class);
     }
 
@@ -35,7 +35,7 @@ public class SumOfPowerService {
         this(numberToCalculate,0);
     }
 
-    public BigDecimal calculatePower() throws ExecutionException, InterruptedException {
+    public BigDecimal calculatePower(){
 
         Callable powerCalculator;
         BigDecimal initialNumber = BigDecimal.ONE;
@@ -52,10 +52,19 @@ public class SumOfPowerService {
             tasks.add(service.submit(powerCalculator));
             initialNumber = finalNumber.add(BigDecimal.ONE);
         }
+        return processResults();
+    }
 
+    private BigDecimal processResults(){
         BigDecimal result = BigDecimal.ZERO;
-        for(Future f:tasks){
-            result = result.add((BigDecimal) f.get());
+        try {
+            for(Future f:tasks){
+                result = result.add((BigDecimal) f.get());
+            }
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(),e);
+        } catch (ExecutionException e) {
+            logger.error(e.getMessage(),e);
         }
         service.shutdown();
         return result;
