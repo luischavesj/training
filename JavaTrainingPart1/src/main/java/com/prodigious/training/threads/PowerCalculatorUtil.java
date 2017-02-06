@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public final class PowerCalculatorUtil {
 
     //formula (n(n + 1)(2n + 1))/6
-    public static BigDecimal calculatePowerDirect(BigDecimal n){
+    public static BigDecimal calculatePowerDirectly(BigDecimal n){
         return (n.multiply(n.add(BigDecimal.ONE).multiply(n.multiply(new BigDecimal("2")).add(BigDecimal.ONE))).divide(new BigDecimal("6")));
     }
 }

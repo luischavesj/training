@@ -2,9 +2,9 @@ package com.prodigious.training.week1.day4.service;
 
 import com.prodigious.training.week1.day4.dao.EmployeeDao;
 import com.prodigious.training.week1.day4.model.Employee;
-import com.prodigious.training.week1.day4.service.EmployeeService;
-import com.prodigious.training.week1.day4.service.EmployeeServiceImpl;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.naming.NamingException;

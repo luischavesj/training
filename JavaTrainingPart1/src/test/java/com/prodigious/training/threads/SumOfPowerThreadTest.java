@@ -19,7 +19,7 @@ public class SumOfPowerThreadTest {
         SumOfPowerThread thread = new SumOfPowerThread(numberToCalculate,5);
         result = thread.getResult();
         //checks against formula (n(n + 1)(2n + 1))/6
-        assert(result.equals(PowerCalculatorUtil.calculatePowerDirect(numberToCalculate)));
+        assert(result.equals(PowerCalculatorUtil.calculatePowerDirectly(numberToCalculate)));
         long finalTime = System.currentTimeMillis();
         System.out.println("Elapsed Time: " + (finalTime - initialTime)/1000 + " Second(s). Number = " + result);
     }

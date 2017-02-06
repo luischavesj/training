@@ -1,7 +1,5 @@
 package com.prodigious.training.week1.day4.dao;
 
-import com.prodigious.training.week1.day4.dao.EmployeeDao;
-import com.prodigious.training.week1.day4.dao.EmployeeDaoImpl;
 import com.prodigious.training.week1.day4.model.Employee;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

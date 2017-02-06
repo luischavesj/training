@@ -1,10 +1,9 @@
 package com.prodigious.training.spring.beans;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * Created by Luis Chaves on 1/27/2017

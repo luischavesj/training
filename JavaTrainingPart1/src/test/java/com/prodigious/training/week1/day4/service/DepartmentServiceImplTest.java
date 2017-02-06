@@ -2,8 +2,6 @@ package com.prodigious.training.week1.day4.service;
 
 import com.prodigious.training.week1.day4.dao.DepartmentDao;
 import com.prodigious.training.week1.day4.model.Department;
-import com.prodigious.training.week1.day4.service.DepartmentService;
-import com.prodigious.training.week1.day4.service.DepartmentServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

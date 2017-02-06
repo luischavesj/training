@@ -1,8 +1,6 @@
 package com.prodigious.training.week2.day1;
 
-import com.prodigious.training.week2.day1.Car;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
