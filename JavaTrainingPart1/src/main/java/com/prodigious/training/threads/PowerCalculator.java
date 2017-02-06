@@ -32,7 +32,9 @@ public class PowerCalculator implements Callable{
             result = result.add(new BigDecimal(Math.pow(i, exponent.doubleValue())));
         }
         //this is just to test how effective is the total calculatePower
-        new Thread().sleep(sleepTime);
+        if(sleepTime != 0) {
+            new Thread().sleep(sleepTime);
+        }
     }
 
     public BigDecimal getResult(){
