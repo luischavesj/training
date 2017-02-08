@@ -1,4 +1,4 @@
-package com.prodigious.training.swing.TableModelExample;
+package com.prodigious.training.swing.tableModelExample;
 
 /**
  * Created by Luis Chaves on 2/2/2017

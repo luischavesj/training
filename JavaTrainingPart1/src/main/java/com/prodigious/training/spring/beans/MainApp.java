@@ -21,6 +21,13 @@ public class MainApp {
         BeanExample beanExampleB = (BeanExample) context.getBean("beanExample");
 
         System.out.println("From Configuration: " + beanExampleB.getMessage());
+        System.out.println("Print Bean Object: " + beanExampleA);
+        System.out.println("List " + beanExampleA.getAddressList());
+        System.out.println("Set " + beanExampleA.getAddressSet());
+        System.out.println("Map " + beanExampleA.getAddressMap());
+        System.out.println("Properties " + beanExampleA.getAddressProperties());
+
+        System.out.println("Testing Autowired Option " + beanExampleA.getItemUsa());
     }
 
 }

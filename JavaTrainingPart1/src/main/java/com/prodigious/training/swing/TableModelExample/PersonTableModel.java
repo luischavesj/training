@@ -1,4 +1,4 @@
-package com.prodigious.training.swing.TableModelExample;
+package com.prodigious.training.swing.tableModelExample;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
